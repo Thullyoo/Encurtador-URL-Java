@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class LinkService {
@@ -35,5 +37,18 @@ public class LinkService {
         linkRepository.save(link);
 
         return new LinkResponse("http://localhost:8080/" + id);
+    }
+
+
+    public Link procuraLink(String id){
+
+            Optional<Link> link = linkRepository.findById(id);
+
+            if (link.isEmpty()){
+                throw new RuntimeException("Link não encurtado");
+            }
+
+            return link.get();
+
     }
 }
