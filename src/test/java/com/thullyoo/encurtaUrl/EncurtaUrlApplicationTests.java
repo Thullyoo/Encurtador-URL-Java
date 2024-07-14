@@ -1,0 +1,13 @@
+package com.thullyoo.encurtaUrl;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class EncurtaUrlApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
