@@ -32,6 +32,8 @@ public class LinkService {
         link.setHoraCriação(LocalDateTime.now());
         link.setExpiraEm(link.getHoraCriação().plusMinutes(5));
 
+        linkRepository.save(link);
+
         return new LinkResponse("http://localhost:8080/" + id);
     }
 }
