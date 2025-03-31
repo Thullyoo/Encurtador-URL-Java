@@ -7,6 +7,7 @@ import com.thullyoo.encurtaUrl.services.LinkService;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,16 @@ public class LinkController {
     @GetMapping("/{id}")
     public void redirecionaUrl(@PathVariable("id") String id, HttpServletResponse httpServlet) throws IOException {
         Link link = linkService.procuraLink(id);
-
         httpServlet.sendRedirect(link.getOriginalUrl());
+    }
+
+    @GetMapping("/qrcode/{id}")
+    public ResponseEntity<byte[]> retornaQrCode(@PathVariable("id") String id, HttpServletResponse httpServlet) throws IOException {
+        byte[] qrCode = linkService.procuraQrCode(id);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "image/png");
+
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(qrCode);
     }
 }
