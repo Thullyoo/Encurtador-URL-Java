@@ -76,4 +76,15 @@ public class LinkService {
 
     }
 
+    public byte[] procuraQrCode(String id){
+
+        Optional<Link> link = linkRepository.findById(id);
+
+        if (link.isEmpty()){
+            throw new RuntimeException("Link não encurtado");
+        }
+
+        return link.get().getQrCode();
+
+    }
 }
